@@ -72,3 +72,23 @@ public function show($id) {
 ```
 
 Notice : `firstOrFail()` is a cleaner way to do an `->first()` and after a `abort(404)`
+
+### Generating multiple files
+
+With eloquent, you can generate multiple files when running the command for create a model.   
+You can find the complete list with : `php artisan help make:model`
+
+Some examples :    
+I want to generate a controller and a migration with my model : `php artisan make:model MyModel -mc`   
+I want to generate a controller with my model : `php artisan make:model MyModel -c`
+
+### Function in model
+
+In model you can add some function, for example : 
+```php
+public function complete() {
+    $this->completed = true;
+    $this->save();
+}
+```
+This fonction modify the field complete of the model and pass it to true 
