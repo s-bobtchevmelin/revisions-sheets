@@ -1,4 +1,4 @@
-# Laravel Routing
+# Laravel Routing and data management
 
 We can find the route file in routes/web.php
 
@@ -14,6 +14,23 @@ Here we declare a route with a get method, the path will be / and we say that th
 Notice : Views can be found in ressources/views/  
 In the return of the route, you can pass what you want and not just a view. For exemple, we can make `return 'hello world'` and oit will display it on the page.
 
+## Route order
+
+Pay attention to route order, in some case it can be tricky : 
+
+```php
+Route::get('/article/{article}', [ArticlesController::class, 'show']);
+Route::get('/article/create', [ArticlesController::class, 'create']);
+```
+Here, it'll check if the route is `/article/{article}` and then if not, it'll pass to `/article/create`.   
+But in this case, if you tap in your URL `/article/create` you should have an error, that's normal because the first route has a wildcard which accept anything after `/article` . So it think you want to access an article with an id called 'create'.   
+
+If you want to go through this, just invert both routes : 
+```php
+Route::get('/article/create', [ArticlesController::class, 'create']);
+Route::get('/article/{article}', [ArticlesController::class, 'show']);
+```
+Now the problem is solved because, it'll check if the route is `/article/create` and then if not, it'll pass to `/article/{article}`
 
 ## Pass request data to a view in a route
 

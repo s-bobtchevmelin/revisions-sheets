@@ -41,7 +41,7 @@ When creating a navbar we would have the correct navbar item highlight. There're
 <ul>
     <li class="{{ Request::path() === '/' ? 'active' : '' }}"><a href="/">Home</a></li>
     <li class="{{ Request::is('sloth') ? 'active' : '' }}"><a href="/sloth">Sloth</a></li>
-    <li class="{{ Request::is('seal*') ? 'active' : '' }}"><a href="/seal/1">Seal</a></li>
+    <li class="{{ Request::is('seal*') ? 'active' : '' }}"><a href="/seal/{{ $seal->id }}">Seal</a></li>
 </ul>
 ```
 
@@ -54,3 +54,29 @@ Notice : the active class will apply any css related to it when you are on the p
 </style>
 ```
 Notice 2 : The * after seal allow the route to have a wildcard.   
+
+## Loop
+
+### Foreach
+
+```php
+@foreach ($items as $item)
+    <p>{{ $item->description }}</p>
+@endforeach
+```
+
+## Conditions
+
+### If
+
+```php
+@if ($item)
+    <p>{{ $item->description }}</p>
+@endif
+```
+
+### Ternary
+
+```php
+    <p>{{ $item ? $item->description : 'no item found' }}</p>
+```
