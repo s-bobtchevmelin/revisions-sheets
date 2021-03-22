@@ -92,3 +92,34 @@ public function complete() {
 }
 ```
 This fonction modify the field complete of the model and pass it to true 
+
+
+## Model Binding
+
+### With Primary key
+
+Model binding allow us to pass a model as argument of a controller's method, it'll get us the ressources depending the id pass in the route
+
+The route : `Route::get('/article/{article}', [ArticlesController::class, 'show']);`
+
+The controller : 
+```php
+public function show(Article $article) {
+    // Before we use this but we do the exact same thing with the model binding
+    // $article = Article::find($id);
+    return view('article.article-details', ["article" => $article]);
+}
+```
+
+### With any others fields
+
+The previous point works only with primary key (id) if you want to use a slug or a title (for example) instead of an id, you can overwrite the method `getRouteKeyName()`
+
+```php
+ public function getRouteKeyName()
+{
+    return 'title';
+}
+```
+
+Now you can type in your URL that : `http://127.0.0.1:8000/article/My first article` and it'll work !
