@@ -24,3 +24,5 @@ Examples :
 `::find(id)` : get the element depending the id
 
 `::findOrFail(id)` : get the element depending the id but return 404 error if nothing found
+
+`->pluck('field')` : use after getting some elements for pick only some field

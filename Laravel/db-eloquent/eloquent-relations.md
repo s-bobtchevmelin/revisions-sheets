@@ -3,7 +3,36 @@
 hasMany   
 hasOne   
 belongsTo   
-belongsToMany   
+belongsToMany  
+
+* [Foreign Key](#Foreign-Key) 
+* [One to many](#One-to-many) 
+    * [Define the relation](#Define-the-relation) 
+    * [Access the relation](#Access-the-relation)
+    * [Custom relation](#Custom-relation)
+* [Many to many](#Many-to-many) 
+    * [Create the pivot table](#Create-the-pivot-table)  
+    * [Define the relation](#Define-the-relation-1) 
+
+## Foreign Key
+
+### Create a foreign key
+
+To declare a foreign key in a table we can had a lign in our migration : `$table->unsignedBigInteger('user_id');`    
+Notice : don't forget to re-run your migration (`php artisan migrate:fresh`)   
+
+### Foreign key constraints
+
+We can had some specifications / constraints to our foreign key :   
+
+```php
+$table->foreign('user_id')
+    ->references('id')
+    ->on('users')
+    ->onDelete('cascade');
+```
+
+It says : the forein key named `user_id`, refer to the id field (`->references('id')`) of the users table (`->on('users')`) and we want the article with this foreign key to be delete is the user don't exist anymore (`->onDelete('cascade')`)
 
 ## One to many
 
@@ -48,24 +77,60 @@ We need to precise the key (`user_id`) because if not, laravel would search auth
 * Example 2 : we don't want the relation to point on the primary key :
 <!-- TO DO -->
 
-The relation
+## Many to many
 
-## Foreign Key
+Imagine you have articles and tags : a tag can have multiple articles and an article can have multiple tags.
 
-### Create a foreign key
+### Create the pivot table
 
-To declare a foreign key in a table we can had a lign in our migration : `$table->unsignedBigInteger('user_id');`    
-Notice : don't forget to re-run your migration (`php artisan migrate:fresh`)   
+The table will be named `table1_table2` in alphabetic order and in singular.   
+Here we have the tables ``tags` and `articles` so the pivot table will be `article_tag`
 
-### Foreign key constraints
-
-We can had some specifications / constraints to our foreign key :   
+First we need to create a migration to create this table : `php artisan make:migration create_article_tag_table`    
+The migration should looks like : 
 
 ```php
-$table->foreign('user_id')
-    ->references('id')
-    ->on('users')
-    ->onDelete('cascade');
+public function up()
+{
+    Schema::create('article_tag', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('article_id');
+        $table->unsignedBigInteger('tag_id');
+        $table->timestamps();
+
+        $table->unique(['article_id', 'tag_id']);
+
+        $table->foreign('article_id')
+            ->references('id')
+            ->on('articles')
+            ->onDelete('cascade');
+
+        $table->foreign('tag_id')
+            ->references('id')
+            ->on('tags')
+            ->onDelete('cascade');
+    });
+}
 ```
 
-It says : the forein key named `user_id`, refer to the id field (`->references('id')`) of the users table (`->on('users')`) and we want the article with this foreign key to be delete is the user don't exist anymore (`->onDelete('cascade')`)
+* We create both foreign keys
+* We set this foreign keys has unique
+* We add foreign keys constraints
+
+### Define the relation
+
+* Article side : 
+```php
+public function tags() 
+{
+    return $this->belongsToMany(Tag::class);
+}
+```
+
+* Tag side :
+```php
+public function articles() 
+{
+    return $this->belongsToMany(Article::class);
+}
+```
