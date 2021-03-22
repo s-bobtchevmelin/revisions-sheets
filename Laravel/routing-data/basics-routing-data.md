@@ -168,14 +168,14 @@ You can also create the model in the same time : `php artisan make:controlle Pro
 
 Give names to our routes is usefull : if don't using it, when our routes change we have to change the route manually in each link. thanks to named routes, we don't have to do this anymore.
 
-## Declare the route's name
+### Declare the route's name
 
 ```php
 Route::get('/article/', [ArticlesController::class, 'index'])->name(article.all);
 Route::get('/article/{article}', [ArticlesController::class, 'show'])->name(article.show);
 ```
 
-## Use named route
+### Usage
 
 ```php
     <a href="{{ route('article.all)'}}"></a>
@@ -184,3 +184,7 @@ Route::get('/article/{article}', [ArticlesController::class, 'show'])->name(arti
 ```
 
 Notice : for the wildcard, we can pass the article id, or you can pass the article and laravel will fing automatically the id (work only for primary key).
+
+### Redirection
+
+`return redirect(route('article.all'));`
