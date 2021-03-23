@@ -1,5 +1,11 @@
 # Asset compilation with Laravel Mix and Webpack
 
+## Table of contents
+
+* [Sass](#Sass) 
+* [Asset Management](#Asset-Management) 
+* [Import in blade](#Import-in-blade) 
+
 If using Vanilla JS, js and css folder should be in public/     
 If using a compilator, js and css (or scss) folder should be in ressources/
 

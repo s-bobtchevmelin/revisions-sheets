@@ -1,5 +1,10 @@
 # Form Validation
 
+## Table of contents
+
+* [The controller](#The-controller) 
+* [The view](#The-view) 
+
 ## The controller
 
 The data from the form will pass in the validator function to check if is valid or not

@@ -5,6 +5,8 @@ hasOne
 belongsTo   
 belongsToMany  
 
+## Table of contents
+
 * [Foreign Key](#Foreign-Key) 
 * [One to many](#One-to-many) 
     * [Define the relation](#Define-the-relation) 
@@ -12,7 +14,8 @@ belongsToMany
     * [Custom relation](#Custom-relation)
 * [Many to many](#Many-to-many) 
     * [Create the pivot table](#Create-the-pivot-table)  
-    * [Define the relation](#Define-the-relation-1) 
+    * [Define the relation](#Define-the-relation-1)
+    * [Attach and validate](#Attach-and-validate) 
 
 ## Foreign Key
 

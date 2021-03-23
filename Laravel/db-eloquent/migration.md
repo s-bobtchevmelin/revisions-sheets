@@ -1,5 +1,13 @@
 # Migration
 
+## Table of contents
+
+* [Create a migration](#Create-a-migration) 
+* [Create tables and column](#Create-tables-and-column)  
+* [Run a migration](#Run-a-migration)  
+* [Add field to a table](#Add-field-to-a-table)  
+* [Some others commands](#Some-others-commands)   
+
 ## Create a migration
 
 `php artisan make:migration migrationName`

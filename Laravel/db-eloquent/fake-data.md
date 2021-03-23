@@ -1,5 +1,9 @@
 # Fake data
 
+## Table of contents
+
+* [Factories](#Factories)   
+
 ## Factories
 
 ### Basics

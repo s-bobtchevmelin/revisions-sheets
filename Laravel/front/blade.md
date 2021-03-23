@@ -1,5 +1,12 @@
 # Blade
 
+## Table of contents
+
+* [Layout and sections](#Layout-and-sections) 
+* [Set active menu link](#Set-active-menu-link) 
+* [Loop](#Loop) 
+* [Conditions](#Conditions)
+
 ## Layout and sections
 
 A layout file is a view who will be use has a base for our others views.   

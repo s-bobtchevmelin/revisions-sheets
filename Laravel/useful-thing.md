@@ -1,5 +1,9 @@
 # Some random and useful things to know
 
+## Table of contents
+
+* [Tinker](#Tinker)
+
 ## Tinker
 
 Tinker is a tool in php artisan who allow us to run php code in our project via the console.   

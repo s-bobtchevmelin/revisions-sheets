@@ -1,5 +1,13 @@
 # Database connexion
 
+## Table of contents
+
+* [Edit the .env](#Edit-the-.env)   
+* [Create the db](#Create-the-db)  
+* [Without eloquent](#Without-eloquent)  
+* [With eloquent](#With-eloquent)  
+* [Model binding](#Model-binding) 
+
 ## Edit the .env
 
 ```
