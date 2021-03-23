@@ -134,3 +134,60 @@ public function articles()
     return $this->belongsToMany(Article::class);
 }
 ```
+
+### Attach and validate
+
+* In our form we add a select input for our tags (don't forget to pass the tags to the view)
+
+```php
+<div>
+    <label for="tags">Tags</label>
+    <select name="tags[]" multiple>
+        @foreach ($tags as $tag)
+            <option value="{{ $tag->id }}">{{ $tag->name}}</option>
+        @endforeach
+    </select>
+    
+    @error('title')
+        <p>{{ $message }}</p>
+    @enderror
+</div>
+```
+
+Notice : in the attribut name we have `name="tags[]"`, the `[]` mean that the output of the select will be dispaly in an array instead of a string
+
+* In our store method we'll attach the tags selected
+```php
+public function store() {
+
+    request()->validate([
+        'title' => ['required', 'min:3', 'max:255'],
+        'excerpt' => 'required',
+        'body' => 'required',
+        'tags' => 'exists:tags,id'
+    ]);
+
+    $article = new Article(request(['title', 'excerpt', 'body']));
+    
+    $article->user_id = 1; // we do this because we don't have any auth yet
+    $article->save();
+
+    $article->tags()->attach(request('tags'));
+
+    return redirect('/article');
+}
+```
+
+Notice : this time we do the validation in 2 parts because we don't want the tags to be "created" but "attach" and that's 2 differents things.
+
+* Validate tags in case somebody try to add tags that don't exist
+```php
+request()->validate([
+    'title' => ['required', 'min:3', 'max:255'],
+    'excerpt' => 'required',
+    'body' => 'required',
+    'tags' => 'exists:tag,id'
+])
+```
+
+We had `'tags' => 'exists:tag,id'`, that's mean : tags must exist in the field of of the table tag.

@@ -65,6 +65,16 @@ Notice 2 : The * after seal allow the route to have a wildcard.
 @endforeach
 ```
 
+### Forelse
+
+```php
+@forelse ($items as $item)
+    <p>{{ $item->description }}</p>
+@empty
+    <p>No items yet</p>
+@endforelse
+```
+
 ## Conditions
 
 ### If
