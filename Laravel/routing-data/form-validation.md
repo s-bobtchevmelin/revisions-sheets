@@ -4,6 +4,7 @@
 
 * [The controller](#The-controller) 
 * [The view](#The-view) 
+* [Validation indications](#Validation-indications)
 
 ## The controller
 
@@ -143,3 +144,11 @@ To go througth that mechanism, we can set a value attribut to the data enter bef
     ... form fields ...
 </form>
 ```
+
+
+## Validation indications
+
+* `required`
+* `min:nb` (example : min:3)
+* `max:nb` (example : man:8)
+* `email`
