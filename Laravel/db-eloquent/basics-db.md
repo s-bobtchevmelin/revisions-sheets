@@ -7,6 +7,7 @@
 * [Without eloquent](#Without-eloquent)  
 * [With eloquent](#With-eloquent)  
 * [Model binding](#Model-binding) 
+* [Logic in model](#Logic-in-model)
 
 ## Edit the .env
 
@@ -131,3 +132,16 @@ The previous point works only with primary key (id) if you want to use a slug or
 ```
 
 Now you can type in your URL that : `http://127.0.0.1:8000/article/My first article` and it'll work !
+
+
+## Logic in model
+
+In some case, it's usefull to put logic in model instead of controller : when some action might be repeated or to clarify some actions
+
+Examaple : in an Article model : 
+```php
+public function markAsRead() {
+    $this->read = true;
+    $this->save();
+}
+```

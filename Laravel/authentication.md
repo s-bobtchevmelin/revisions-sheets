@@ -3,7 +3,6 @@
 ## Table of contents
 
 * [Set up](#Set-up)
-* [Middleware](#Middleware)
 * [Access current user in blade](#Access-current-user-in-blade)
 * [Reset password](#Reset-password)
 
@@ -23,28 +22,6 @@ Notice : if the css on login and register are broken. I resolve it by adding a m
 
 /!\ Now we can access to a login and a register page which work. If I try to register a new user, it works ! I also can login or logout !
 
-## Middleware
-
-Middleware are very usefull to set route restrictions, we can find them at `/app/Http/Middleware`
-
-### Creation
-
-### Usage
-
-We can use them in 2 differents place :
-
-* In the construct of a controller
-```php
-public function __construct()
-{
-    $this->middleware('auth');
-}
-```
-
-* Sticked to a route (more common)
-```php
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-```
 
 ## Access current user in blade
 
