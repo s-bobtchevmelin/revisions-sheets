@@ -136,12 +136,73 @@ Now you can type in your URL that : `http://127.0.0.1:8000/article/My first arti
 
 ## Logic in model
 
+### Save
+
 In some case, it's usefull to put logic in model instead of controller : when some action might be repeated or to clarify some actions
 
 Examaple : in an Article model : 
 ```php
-public function markAsRead() {
-    $this->read = true;
-    $this->save();
+public function markAsRead() 
+{
+    // $this->read = true;
+    // $this->save();
+
+    // a condense way to do the same  : 
+    $this->read->save(true)
 }
+```
+
+### Sync
+
+Sometime, when editing a value you not just edit a unique value, sometime you add a value to an array of other value (as with collection / pivot)   
+When you want to replace the array entirely, I can use `sync`, it'll drop off all the current roles and replace it with `$role` :    
+```php
+// in User.php
+public function assignRole($role) 
+{
+    $this->role->sync($role);
+}
+```
+
+If you don't want to drop all of the user but just add the new one you can do this : 
+```php
+// in User.php
+public function assignRole($role) 
+{
+    $this->role->syncWithoutDetaching($role, false);
+    // same but less clear : $this->role->sync($role, false);
+}
+```
+
+Notice : when seeing this we could thing that the same as the basic one with `save` but in fact not really. With `save`, it add the new `$role` but if you try to add a new `role` who already exist in the table it will crash and return an error. With `sync($role, false)`, it basically does the same thing but without throwing an error : it will add the `$role` in the table but if there already have the same `$role` in database, I'll do nothing.
+
+
+### Logic using model instance 
+
+In the previous point, the method `assignRole` accepted a model instance of Role, so you cannot just pass to it a simple sting as 'myRoleName'. You must instanciate the model : 
+
+```php
+// calling the method :
+$user = User::find($id)
+$manager = Role::firstOrCreate(['name' => 'manager']);*
+$user->assignRole($manager);
+```
+
+But imagine doing this eatch time you call the `assignRole` method. Instead you can put some logic in the method :
+
+```php
+// in User.php
+public function assignRole($role) 
+{
+    if(is_string($role)) {
+        $role = Role::whereName($role)->firstOrFail();
+    }
+    $this->role->sync($role, false);
+}
+```
+
+```php
+// calling the method :
+$user = User::find($id)
+$user->assignRole('manager');
 ```
